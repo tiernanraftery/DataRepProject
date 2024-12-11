@@ -2,28 +2,30 @@ import Shows from "./shows";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Read = () => {
+const GetShow = () => {
 
   const [shows, setShows] = useState([]);
 
-  useEffect(() => {
-    
-    axios.get('http://localhost:4000/api/movies')
-      .then((response) => {
-        console.log(response.data);
-        setMovies(response.data.movies);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+  const Reload = () => {
+    console.log("Reloading movie data...");
+    axios.get('http://localhost:4000/api/shows')
+        .then((response) => {
+            setShows(response.data.shows);
+        })
+        .catch((error) => {
+            console.error("Error reloading data:", error);
+        });
+};
 
+useEffect(() => {
+    Reload();
+}, []);
   return (
     <div>
       <h3>Hello from read component!</h3>
-      <Shows myShows={shows} />
+      <Shows myShows={shows} ReloadData={Reload}/>
     </div>
   );
 }
 
-export default Read;
+export default GetShow;

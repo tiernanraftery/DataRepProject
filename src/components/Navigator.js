@@ -1,21 +1,21 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ShowList from './components/ShowList';
-import AddShow from './components/AddShow';
-import EditShow from './components/EditShow';
-import ShowDetails from './components/ShowDetails';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
-function App() {
+
+function Navigator() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<ShowList />} />
-                <Route path="/add" element={<AddShow />} />
-                <Route path="/edit/:id" element={<EditShow />} />
-                <Route path="/details/:id" element={<ShowDetails />} />
-            </Routes>
-        </Router>
+        <Navbar bg="dark" data-bs-theme="dark">
+          <Container>
+            <Navbar.Brand href="/">Navbar</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/AddShow">Create</Nav.Link>
+              <Nav.Link href="/getShow">Read</Nav.Link>
+            </Nav>
+          </Container>
+      </Navbar>
     );
 }
 
-export default App;
+export default Navigator;

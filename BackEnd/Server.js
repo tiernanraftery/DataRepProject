@@ -17,12 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://admin:admin@martinscluster.w5rtkz0.mongodb.net/DB14');
+mongoose.connect('mongodb+srv://admin:admin@cluster0.pbw30.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 const showSchema = new mongoose.Schema({
   title:String,
   year:String,
-  poster:String
+  poster:String,
+  desc:String
 });
 
 const showModel = new mongoose.model('myShows',showSchema);
@@ -35,7 +36,7 @@ app.get('/api/shows', async (req, res) => {
 // route fetches a specific movie by its ID
 app.get('/api/show/:id', async (req, res) => {
   let shows = await showModel.findById({ _id: req.params.id });
-  res.send(show);
+  res.send(shows);
 });
 
 //This route updates a specific movie’s information
@@ -44,6 +45,11 @@ app.put('/api/show/:id', async (req, res) => {
   res.send(show);
 });
 
+app.delete('/api/show/:id', async(req, res)=>{
+    const show = await showModel.findByIdAndDelete(req.params.id);
+    res.send(show);
+  })
+
 app.get('/api/show/:id', async (req ,res)=>{
   const show = await showModel.findById(req.params.id);
   res.json(show);
@@ -51,9 +57,9 @@ app.get('/api/show/:id', async (req ,res)=>{
 
 app.post('/api/shows',async (req, res)=>{
     console.log(req.body.title);
-    const {title, year, poster} = req.body;
+    const {title, year, poster,desc} = req.body;
 
-    const newShow = new showModel({title, year, poster});
+    const newShow = new showModel({title, year, poster,desc});
     await newShow.save();
 
     res.status(201).json({"message":"Show Added!",Show:newShow});

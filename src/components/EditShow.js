@@ -1,52 +1,76 @@
-import React, { useState, useEffect } from 'react';
+
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-function EditShow() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [show, setShow] = useState({ title: '', description: '', genre: '', year: '' });
+export default function Edit(props) {
+  let { id } = useParams();
+  const [title, setTitle] = useState("");
+  const [year, setYear] = useState("");
+  const [poster, setPoster] = useState("");
+  const [desc, setDesc] = useState("");
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchShow();
-    }, []);
+useEffect(() => {
+    axios.get('http://localhost:4000/api/show/' + id)
+        .then((response) => {
+            setTitle(response.data.title);
+            setYear(response.data.year);
+            setPoster(response.data.poster);
+            setDesc(response.data.desc);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}, [id]);
 
-    const fetchShow = async () => {
-        try {
-            const response = await axios.get(`http://localhost:4000/shows/${id}`);
-            setShow(response.data);
-        } catch (error) {
-            console.error('Error fetching show:', error);
-        }
-    };
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setShow({ ...show, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.put(`http://localhost:4000/shows/${id}`, show);
-            navigate('/');
-        } catch (error) {
-            console.error('Error updating show:', error);
-        }
-    };
-
-    return (
-        <div>
-            <h1>Edit Show</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="title" placeholder="Title" value={show.title} onChange={handleChange} required />
-                <input type="text" name="genre" placeholder="Genre" value={show.genre} onChange={handleChange} required />
-                <input type="number" name="year" placeholder="Year" value={show.year} onChange={handleChange} required />
-                <textarea name="description" placeholder="Description" value={show.description} onChange={handleChange} required />
-                <button type="submit">Update Show</button>
-            </form>
-        </div>
-    );
+const handleSubmit = (event) => {
+    event.preventDefault();
+    const newShow = { id, title, year, poster, desc };
+    axios.put('http://localhost:4000/api/show/' + id, newShow)
+        .then((res) => {
+            console.log(res.data);
+            navigate('/read');
+        });
 }
 
-export default EditShow;
+return (
+    <div>
+        <form onSubmit={handleSubmit}>
+            <div className="form-group">
+                <label>Movie Title: </label>
+                <input type="text" 
+                className="form-control" 
+                value={title} 
+                onChange={(e) => setTitle(e.target.value)} />
+            </div>
+            <div className="form-group">
+                <label>Release Year: </label>
+                <input type="text" 
+                className="form-control" 
+                value={year} 
+                onChange={(e) => setYear(e.target.value)} />
+            </div>
+            <div className="form-group">
+                <label>Poster URL: </label>
+                <input type="text" 
+                className="form-control" 
+                value={poster} 
+                onChange={(e) => setPoster(e.target.value)} />
+            </div>
+            <div className="form-group">
+                <label>Show description : </label>
+                <input type="text" 
+                className="form-control" 
+                value={desc} 
+                onChange={(e) => setDesc(e.target.value)} />
+            </div>
+            <div className="form-group">
+                <input type="submit" value="Edit Show" className="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+);
+}

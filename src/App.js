@@ -1,20 +1,21 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import NavigationBar from './components/NavigationBar';
-import AddShow from './component/AddShow';
-import EditShow from './component/Editshow';
-import ShowDetails from './component/ShowDetails';
-import ShowList from './component/ShowList';
+import Navigator from './components/Navigator';
+import AddShow from './components/AddShow';
+import EditShow from './components/EditShow';
+import ShowDetails from './components/ShowDetails';
+import ShowList from './components/ShowList';
+import GetShow from './components/getshow';
+
 function App() {
   return (
    <Router>
-      <NavigationBar/>
+      <Navigator/>
       <Routes>
         <Route path="/addshow"element={<AddShow/>}/>
-        <Route path="/EditShow"element={<EditShow/>}/>
-        <Route path="/ShowDetails"element={<ShowDetails/>}/>
-        <Route path="/ShowList"element={<ShowList />}/>
+        <Route path="/edit/:id"element={<EditShow/>}/>
+        <Route path="/getshow"element={<GetShow/>}/>
 
       </Routes>
    </Router>
