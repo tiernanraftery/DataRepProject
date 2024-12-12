@@ -6,13 +6,19 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 export default function Edit(props) {
+    //Extract the 'id' parameter from the route
   let { id } = useParams();
+
+  //state variables to manage form input fields
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [poster, setPoster] = useState("");
   const [desc, setDesc] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate();//hook to navigate programmatically
 
+
+
+  //fetch the current show data when the component loads
 useEffect(() => {
     axios.get('http://localhost:4000/api/show/' + id)
         .then((response) => {
@@ -28,7 +34,10 @@ useEffect(() => {
 
 const handleSubmit = (event) => {
     event.preventDefault();
+
+    //construct the updated show object 
     const newShow = { id, title, year, poster, desc };
+    // Make a PUT request to update the show on the server
     axios.put('http://localhost:4000/api/show/' + id, newShow)
         .then((res) => {
             console.log(res.data);
@@ -37,6 +46,7 @@ const handleSubmit = (event) => {
 }
 
 return (
+    // Render the form to edit the show details
     <div>
         <form onSubmit={handleSubmit}>
             <div className="form-group">

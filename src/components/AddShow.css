@@ -7,6 +7,9 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
     color: #fff; /* White text for contrast */
   }
+
+  body {
+    background-color: #000; /* Black background for the entire app */}
   
   .add-show-form {
     padding: 15px;

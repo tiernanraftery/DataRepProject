@@ -8,11 +8,16 @@ const AddShow = () => {
   const [poster, setPoster] = useState('');
   const [desc, setDesc] = useState('');
 
+
+  // Function to handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault();// Prevent default form submission behavior (page refresh)
+
+    // Create a show object using the form data
     const show = { title, year, poster, desc };
     console.log(show);
 
+    // Make a POST request to the server to add a new show
     axios.post('http://localhost:4000/api/shows', show)
       .then((res) => {
         console.log(res.data);
@@ -22,7 +27,7 @@ const AddShow = () => {
         setDesc('');
       })
       .catch((err) => {
-        console.error("Error adding show:", err);
+        console.error("Error adding show:", err);//log any errors
       });
   };
 
@@ -38,7 +43,8 @@ const AddShow = () => {
             className="form-control"
             placeholder="Enter show title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}// Update title state on input change
+
           />
         </div>
         <div className="form-group mb-3">
@@ -71,7 +77,7 @@ const AddShow = () => {
             placeholder="Enter a brief description of the show"
             rows="4"
             value={desc}
-            onChange={(e) => setDesc(e.target.value)}
+            onChange={(e) => setDesc(e.target.value)}// Update desc state on input change
           ></textarea>
         </div>
         <div className="text-center">
@@ -84,4 +90,4 @@ const AddShow = () => {
   );
 };
 
-export default AddShow;
+export default AddShow; // Export the AddShow component for use in other parts of the app

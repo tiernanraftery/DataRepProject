@@ -4,6 +4,7 @@ import axios from "axios";
 import './getshow.css'; // Custom styles
 
 const GetShow = () => {
+  //state to hold the fecthed shows data
   const [shows, setShows] = useState([]);
 
   const Reload = () => {
