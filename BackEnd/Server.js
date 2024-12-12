@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
+// CORS middleware to allow cross-origin requests from the frontend
 const cors = require('cors');
 app.use(cors());
 
+
+// Middleware to set headers for CORS and other allowed HTTP methods
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -12,13 +15,19 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Middleware for parsing incoming request bodies
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));// For parsing form data
 app.use(bodyParser.json());
 
+
+
+// Connect to MongoDB
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://admin:admin@cluster0.pbw30.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
+
+//define the schema for myshows
 const showSchema = new mongoose.Schema({
   title:String,
   year:String,
@@ -26,6 +35,7 @@ const showSchema = new mongoose.Schema({
   desc:String
 });
 
+// Create a model
 const showModel = new mongoose.model('myShows',showSchema);
 
 app.get('/api/shows', async (req, res) => {
@@ -55,6 +65,8 @@ app.get('/api/show/:id', async (req ,res)=>{
   res.json(show);
 })
 
+
+// Route to add a new show to the database
 app.post('/api/shows',async (req, res)=>{
     console.log(req.body.title);
     const {title, year, poster,desc} = req.body;
@@ -65,6 +77,7 @@ app.post('/api/shows',async (req, res)=>{
     res.status(201).json({"message":"Show Added!",Show:newShow});
 })
 
+// Start the server and listen on the specified port
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
