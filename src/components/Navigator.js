@@ -7,7 +7,7 @@ function Navigator() {
     return (
         <Navbar bg="dark" data-bs-theme="dark">
           <Container>
-           <Navbar.Brand href="/">Navbar</Navbar.Brand>
+           <Navbar.Brand href="/">Show Tracker</Navbar.Brand>
             <Nav className="me-auto">
               {/*links to the pages in the navbar */}
               <Nav.Link href="/AddShow">Create</Nav.Link>
