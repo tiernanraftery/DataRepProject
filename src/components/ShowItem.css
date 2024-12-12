@@ -1,0 +1,31 @@
+.show-item-container {
+    max-width: 400px;
+    margin: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .show-item-container:hover {
+    transform: scale(1.05);
+  }
+  
+  .show-poster {
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  

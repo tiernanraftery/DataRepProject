@@ -3,43 +3,52 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Button from 'react-bootstrap/Button';
+import './ShowItem.css'; // Import custom CSS for additional styling
 
-
-const ShowItem = (props)=> {
+const ShowItem = (props) => {
   useEffect(() => {
     console.log("Show Item:", props.myshow);
-  }, [props.myshow]); // Only run this effect when the mymovie prop changes
+  }, [props.myshow]);
 
-  const handleDelete = (e)=>{
+  const handleDelete = (e) => {
     e.preventDefault();
 
-    axios.delete('http://localhost:4000/api/show/'+props.myshow._id)
-    .then((res)=>{
-      props.Reload();
-    })
-    .catch((error)=>{
-      console.log(error);
-    });
-
-  }
+    axios.delete('http://localhost:4000/api/show/' + props.myshow._id)
+      .then((res) => {
+        props.Reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
-    <div>
-      <Card>
-        <Card.Header>{props.myshow.title}</Card.Header>
+    <div className="show-item-container">
+      <Card className="shadow-lg mb-4">
+        <Card.Img
+          variant="top"
+          src={props.myshow.poster}
+          alt={props.myshow.title}
+          className="show-poster"
+        />
         <Card.Body>
-          <blockquote className="blockquote mb-0">
-            <img src={props.myshow.poster} alt={props.myshow.title} />
-            <footer>{props.myshow.year}</footer>
-            <p>{props.myshow.desc}</p>
-          </blockquote>
+          <Card.Title className="text-center">{props.myshow.title}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted text-center">
+            Year: {props.myshow.year}
+          </Card.Subtitle>
+          <Card.Text className="text-justify">{props.myshow.desc}</Card.Text>
+          <div className="d-flex justify-content-between">
+            <Link to={`/edit/${props.myshow._id}`} className="btn btn-primary">
+              Edit
+            </Link>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </div>
         </Card.Body>
-
-        <Link to={"/edit/" + props.myshow._id} className="btn btn-primary">Edit</Link>{/*This code snippet adds an "Edit" button to each movie item, allowing users to navigate to the edit page for that specific movie.*/}
-        <Button className="btn btn-danger" onClick={handleDelete}>Delete</Button>
       </Card>
     </div>
   );
-}
+};
 
 export default ShowItem;

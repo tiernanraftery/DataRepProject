@@ -1,0 +1,52 @@
+.add-show-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #000; /* Black background */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    color: #fff; /* White text for contrast */
+  }
+  
+  .add-show-form {
+    padding: 15px;
+  }
+  
+  h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f8f9fa; /* Slightly lighter white */
+    text-align: center;
+  }
+  
+  .form-control {
+    font-size: 1rem;
+    background-color: #222; /* Dark gray for input fields */
+    color: #fff; /* White text for inputs */
+    border: 1px solid #444; /* Subtle border for input fields */
+  }
+  
+  textarea.form-control {
+    resize: none;
+  }
+  
+  .form-control:focus {
+    background-color: #333; /* Slightly lighter gray on focus */
+    border-color: #555; /* Highlight border on focus */
+  }
+  
+  .btn {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .btn-success {
+    background-color: #e50914; /* Netflix red for the button */
+    border: none;
+  }
+  
+  .btn-success:hover {
+    background-color: #b00710; /* Slightly darker red on hover */
+  }
+  
