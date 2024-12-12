@@ -9,7 +9,7 @@ function Navigator() {
           <Container>
            <Navbar.Brand href="/">Navbar</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
+              {/*links to the pages in the navbar */}
               <Nav.Link href="/AddShow">Create</Nav.Link>
               <Nav.Link href="/getShow">Read</Nav.Link>
             </Nav>

@@ -6,13 +6,16 @@ import Button from 'react-bootstrap/Button';
 import './ShowItem.css'; // Import custom CSS for additional styling
 
 const ShowItem = (props) => {
+  // useEffect hook to log the show data whenever the show details change
   useEffect(() => {
     console.log("Show Item:", props.myshow);
   }, [props.myshow]);
 
+  // Function to handle the delete action
   const handleDelete = (e) => {
     e.preventDefault();
 
+    // Send a DELETE request to remove the show from the server
     axios.delete('http://localhost:4000/api/show/' + props.myshow._id)
       .then((res) => {
         props.Reload();
@@ -24,7 +27,9 @@ const ShowItem = (props) => {
 
   return (
     <div className="show-item-container">
+      {/* Display the show details in a card */}
       <Card className="shadow-lg mb-4">
+         {/* Show the poster image of the show */}
         <Card.Img
           variant="top"
           src={props.myshow.poster}

@@ -18,6 +18,8 @@ const GetShow = () => {
       });
   };
 
+
+  // Effect hook to fetch data on initial render
   useEffect(() => {
     Reload();
   }, []);
@@ -26,8 +28,10 @@ const GetShow = () => {
     <div className="get-show-container">
       <h3 className="text-center mt-4 mb-3">Explore Your Netflix Shows</h3>
       {shows.length > 0 ? (
+          // If shows are available, pass them to the Shows component
         <Shows myShows={shows} ReloadData={Reload} />
       ) : (
+         // If no shows are available, display a message
         <div className="text-center">
           <p>No shows available. Add some to get started!</p>
         </div>
